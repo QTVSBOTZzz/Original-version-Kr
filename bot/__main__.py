@@ -223,18 +223,16 @@ def stats(update, context):
     else:
         sendMessage(stats, context.bot, update.message)
 
-def start(update, context):
+def start(update):
     buttons = ButtonMaker()
     if EMOJI_THEME is True:
-        buttons.buildbutton(f"😎 {START_BTN1_NAME}", f"{START_BTN1_URL}")
-        buttons.buildbutton(f"🔥 {START_BTN2_NAME}", f"{START_BTN2_URL}")
+        buttons.buildbutton(f"{START_BTN1_NAME}", f"{START_BTN1_URL}")
     else:
         buttons.buildbutton(f"{START_BTN1_NAME}", f"{START_BTN1_URL}")
-        buttons.buildbutton(f"{START_BTN2_NAME}", f"{START_BTN2_URL}")
     reply_markup = buttons.build_menu(2)
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
-        start_string = f'''This bot can mirror all your links to Google Drive!
-Type /{BotCommands.HelpCommand} to get a list of available commands
+        start_string = F'''bot Started In PM\n🍁This Bot Can Leech All Your Links To Magnet Links!
+Type /{Botcommands.Startcommand} To Get A Leech Of Available Commands
 '''
         if PICS:
             sendPhoto(start_string, context.bot, update.message, random.choice(PICS), reply_markup)
@@ -262,7 +260,7 @@ def restart(update, context):
     if dynoRestart:
         LOGGER.info("Dyno Restarting.")
         restart_message = sendMessage("Dyno Restarting.", context.bot, update.message)
-        with open(".restartmsg", "w") as f:
+        withopen(".restartmsg", "w") as f:
             f.truncate(0)
             f.write(f"{restart_message.chat.id}\n{restart_message.message_id}\n")
         heroku_conn = heroku3.from_key(HEROKU_API_KEY)
@@ -279,7 +277,7 @@ def restart(update, context):
         for po in proclist:
             app.process_formation()[po.type].scale(0)
     else:
-        LOGGER.info("Normally Restarting.")
+        LOGGER.info("🎋Normally Restarting☘️.")
         restart_message = sendMessage("Normally Restarting.", context.bot, update.message)
         if Interval:
             Interval[0].cancel()
@@ -297,9 +295,9 @@ def restart(update, context):
 def ping(update, context):
     if EMOJI_THEME is True:
         start_time = int(round(time() * 1000))
-        reply = sendMessage("Starting_Ping ⛔", context.bot, update.message)
+        reply = sendMessage("Starting_Ping 🌸", context.bot, update.message)
         end_time = int(round(time() * 1000))
-        editMessage(f'{end_time - start_time} ms 🔥', reply)
+        editMessage(f'{end_time - start_time} ms 🌾', reply)
     else:
         start_time = int(round(time() * 1000))
         reply = sendMessage("Starting_Ping ", context.bot, update.message)
@@ -311,12 +309,12 @@ def log(update, context):
 
 
 help_string = '''
-<b><a href='https://github.com/codewithweeb/mirror-with-weeb'>WeebZone</a></b> - The Ultimate Telegram MIrror-Leech Bot to Upload Your File & Link in Google Drive & Telegram
+<b><a href='https://github.com/weebzone/WZML-X'>WeebZone</a></b> - The Ultimate Telegram Leech Bot to Upload Your File & Telegram
 Choose a help category:
 '''
 
 help_string_telegraph_user = f'''
-<b><u>👤 User Commands</u></b>
+<b><u>🍁 User Commands</u></b>
 <br><br>
 • <b>/{BotCommands.HelpCommand}</b>: To get this message
 <br><br>
@@ -441,7 +439,7 @@ def bot_help(update, context):
         button.buildbutton("💥 Author", f"https://graph.org/{help_admin}")
     else:
         button.buildbutton("User", f"https://graph.org/{help_user}")
-        button.buildbutton("Admin", f"https://graph.org/{help_admin}")
+        button.buildbutton("Author", f"https://graph.org/{help_admin}")
     sendMarkup(help_string, context.bot, update.message, button.build_menu(2))
 
 if SET_BOT_COMMANDS:
@@ -485,7 +483,7 @@ if SET_BOT_COMMANDS:
         (f'{BotCommands.PingCommand}','Ping the bot'),
         (f'{BotCommands.RestartCommand}','Restart the bot'),
         (f'{BotCommands.LogCommand}','Get the bot Log'),
-        (f'{BotCommands.UsageCommand}','Heroku Dyno usage'),
+        (f'{BotCommands.UsageCommand}','VPS Dyno usage'),
         (f'{BotCommands.SleepCommand}','Sleep Bot'),
         (f'{BotCommands.HelpCommand}','Get detailed help')
     ]
@@ -554,17 +552,17 @@ def main():
                     msg += f"🕸TIME: {time}\n"
                     msg += f"🦋TIMEZONE: {TIMEZONE}\n"
                 else:
-                    msg = f"😎Bot Restarted!\n"
-                    msg += f"📅DATE: {date}\n"
-                    msg += f"⌚TIME: {time}\n"
-                    msg += f"🌐TIMEZONE: {TIMEZONE}"
+                    msg = f"🦞Bot Restarted!\n"
+                    msg += f"🐬DATE: {date}\n"
+                    msg += f"🕸TIME: {time}\n"
+                    msg += f"🦋TIMEZONE: {TIMEZONE}"
 
                 for tag, links in data.items():
                      msg += f"\n{tag}: "
                      for index, link in enumerate(links, start=1):
                          msg += f" <a href='{link}'>{index}</a> |"
                          if len(msg.encode()) > 4000:
-                             if '😎Restarted successfully❗' in msg and cid == chat_id:
+                             if '🌿Restarted successfully💥' in msg and cid == chat_id:
                                  bot.editMessageText(msg, chat_id, msg_id, parse_mode='HTML', disable_web_page_preview=True)
                                  osremove(".restartmsg")
                              else:
@@ -573,7 +571,7 @@ def main():
                                  except Exception as e:
                                      LOGGER.error(e)
                              msg = ''
-                if '😎Restarted successfully❗' in msg and cid == chat_id:
+                if '🌿Restarted successfully🍁' in msg and cid == chat_id:
                      bot.editMessageText(msg, chat_id, msg_id, parse_mode='HTML', disable_web_page_preview=True)
                      osremove(".restartmsg")
                 else:
@@ -585,11 +583,11 @@ def main():
     if ospath.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
-        msg = f"😎Restarted successfully❗\n📅DATE: {date}\n⌚TIME: {time}\n🌐TIMEZONE: {TIMEZONE}\n"
+        msg = f"🍁Restarted successfully🍁\n📅DATE: {date}\n⌚TIME: {time}\n🌐TIMEZONE: {TIMEZONE}\n"
         bot.edit_message_text(msg, chat_id, msg_id)
         osremove(".restartmsg")
     elif not notifier_dict and AUTHORIZED_CHATS:
-        text = f"😎Bot Restarted❗ \n📅DATE: {date} \n⌚TIME: {time} \n🌐TIMEZONE: {TIMEZONE}"
+        text = f"🍁Bot Restarted🌿 \n📅DATE: {date} \n⌚TIME: {time} \n🌐TIMEZONE: {TIMEZONE}"
         for id_ in AUTHORIZED_CHATS:
             try:
                 bot.sendMessage(chat_id=id_, text=text, parse_mode=ParseMode.HTML)
